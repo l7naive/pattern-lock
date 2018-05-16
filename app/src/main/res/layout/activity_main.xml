@@ -15,4 +15,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.itsxtt.patternlock.DotView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.itsxtt.patternlock.DotView>
 </android.support.constraint.ConstraintLayout>
