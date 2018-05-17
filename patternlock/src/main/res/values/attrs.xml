@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PatternLockView">
+        <attr name="plv_outerCircleColorUnselected" format="color"/>
+        <attr name="plv_outerCircleStyleUnselected" format="enum">
+            <enum name="solid" value="1"/>
+            <enum name="ring" value="2"/>
+            <enum name="none" value="3"/>
+        </attr>
+        <attr name="plv_outerCircleStrokeWidthUnselected" format="dimension"/>
+
+        <attr name="plv_innerCircleColorUnselected" format="color"/>
+        <attr name="plv_innerCircleStyleUnselected" format="enum">
+            <enum name="solid" value="1"/>
+            <enum name="ring" value="2"/>
+            <enum name="none" value="3"/>
+        </attr>
+        <attr name="plv_innerCircleStrokeWidthUnselected" format="dimension"/>
+        <attr name="plv_innerCircleRadiusRatio" format="float"/>
+
+
+        <attr name="plv_outerCircleColorSelected" format="color"/>
+
+        <attr name="plv_outerCircleColorError" format="color"/>
+    </declare-styleable>
+
+</resources>
