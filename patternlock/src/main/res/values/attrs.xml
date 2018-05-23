@@ -2,27 +2,30 @@
 <resources>
 
     <declare-styleable name="PatternLockView">
-        <attr name="plv_outerCircleColorUnselected" format="color"/>
-        <attr name="plv_outerCircleStyleUnselected" format="enum">
-            <enum name="solid" value="1"/>
-            <enum name="ring" value="2"/>
-            <enum name="none" value="3"/>
+
+        <attr name="plv_regularCellBackground" format="color|reference"/>
+        <attr name="plv_regularDotColor" format="color"/>
+        <attr name="plv_regularDotRadiusRatio" format="float"/>
+
+        <attr name="plv_selectedCellBackground" format="color|reference"/>
+        <attr name="plv_selectedDotColor" format="color"/>
+        <attr name="plv_selectedDotRadiusRatio" format="float"/>
+
+        <attr name="plv_errorCellBackground" format="color|reference"/>
+        <attr name="plv_errorDotColor" format="color"/>
+        <attr name="plv_errorDotRadiusRatio" format="float"/>
+
+        <attr name="plv_lineStyle" format="enum">
+            <enum name="common" value="1"></enum>
+            <enum name="none" value="2"></enum>
+            <enum name="indicator" value="3"></enum>
         </attr>
-        <attr name="plv_outerCircleStrokeWidthUnselected" format="dimension"/>
+        <attr name="plv_lineWidth" format="dimension"/>
+        <attr name="plv_regularLineColor" format="color"/>
+        <attr name="plv_errorLineColor" format="color"/>
 
-        <attr name="plv_innerCircleColorUnselected" format="color"/>
-        <attr name="plv_innerCircleStyleUnselected" format="enum">
-            <enum name="solid" value="1"/>
-            <enum name="ring" value="2"/>
-            <enum name="none" value="3"/>
-        </attr>
-        <attr name="plv_innerCircleStrokeWidthUnselected" format="dimension"/>
-        <attr name="plv_innerCircleRadiusRatio" format="float"/>
-
-
-        <attr name="plv_outerCircleColorSelected" format="color"/>
-
-        <attr name="plv_outerCircleColorError" format="color"/>
+        <attr name="plv_horizontalSpacing" format="dimension"/>
+        <attr name="plv_verticalSpacing" format="dimension"/>
     </declare-styleable>
 
 </resources>

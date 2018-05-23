@@ -6,16 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.itsxtt.patternlock.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.itsxtt.patternlock.DotView
+
+    <com.itsxtt.patternlock.PatternLockView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.itsxtt.patternlock.DotView>
+        android:layout_height="match_parent"
+        app:plv_regularCellBackground="@drawable/oval"
+        app:plv_regularDotColor="#923456"
+        app:plv_regularDotRadiusRatio="0.4"
+        app:plv_selectedCellBackground="#654321"
+        app:plv_selectedDotColor="#777000"
+        app:plv_selectedDotRadiusRatio="0.5"
+        app:plv_errorCellBackground="#009900"
+        app:plv_errorDotColor="#990000"
+        app:plv_errorDotRadiusRatio="0.6">
+
+    </com.itsxtt.patternlock.PatternLockView>
 </android.support.constraint.ConstraintLayout>
