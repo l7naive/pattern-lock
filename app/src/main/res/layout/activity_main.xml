@@ -10,16 +10,20 @@
 
     <com.itsxtt.patternlock.PatternLockView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         app:plv_regularCellBackground="@drawable/oval"
         app:plv_regularDotColor="#923456"
         app:plv_regularDotRadiusRatio="0.4"
-        app:plv_selectedCellBackground="#654321"
         app:plv_selectedDotColor="#777000"
         app:plv_selectedDotRadiusRatio="0.5"
         app:plv_errorCellBackground="#009900"
         app:plv_errorDotColor="#990000"
-        app:plv_errorDotRadiusRatio="0.6">
+        app:plv_errorDotRadiusRatio="0.8"
+        app:plv_spacing="16dp">
 
     </com.itsxtt.patternlock.PatternLockView>
 </android.support.constraint.ConstraintLayout>

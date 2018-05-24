@@ -1,18 +1,19 @@
 package com.itsxtt.patternlock
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
-import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import java.util.*
 
 
-class PatternLockView : LinearLayout {
+class PatternLockView : GridLayout {
 
     companion object {
         const val DEFAULT_RADIUS_RATIO = 0.3f
@@ -46,15 +47,12 @@ class PatternLockView : LinearLayout {
     private var regularLineColor: Int = 0
     private var errorLineColor: Int = 0
 
-    private var horizontalSpacing: Int = 0
-    private var verticalSpacing: Int = 0
+    private var spacing: Int = 0
 
-    private var rowCount = DEFAULT_ROW_COUNT
-    private var columnCount = DEFAULT_COLUMN_COUNT
+    private var plvRowCount = DEFAULT_ROW_COUNT
+    private var plvColumnCount = DEFAULT_COLUMN_COUNT
 
-    constructor(context: Context) : super(context) {
-
-    }
+    constructor(context: Context) : super(context)
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         var ta = context.obtainStyledAttributes(attributeSet, R.styleable.PatternLockView)
@@ -76,28 +74,45 @@ class PatternLockView : LinearLayout {
         regularLineColor = ta.getColor(R.styleable.PatternLockView_plv_regularLineColor, Color.BLUE)
         errorLineColor = ta.getColor(R.styleable.PatternLockView_plv_errorLineColor, Color.RED)
 
-        horizontalSpacing = ta.getDimensionPixelSize(R.styleable.PatternLockView_plv_horizontalSpacing,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_SPACING, context.resources.displayMetrics).toInt())
-        verticalSpacing = ta.getDimensionPixelSize(R.styleable.PatternLockView_plv_verticalSpacing,
+        spacing = ta.getDimensionPixelSize(R.styleable.PatternLockView_plv_spacing,
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_SPACING, context.resources.displayMetrics).toInt())
         ta.recycle()
 
-        var cell = Cell(context, 0, 0,
-                regularCellBackground, regularDotColor, regularDotRadiusRatio,
-                selectedCellBackground, selectedDotColor, selectedDotRadiusRatio,
-                errorCellBackground, errorDotColor, errorDotRadiusRatio,
-                lineStyle, regularLineColor, errorLineColor)
-        var x: Int = 0
-        addView(cell, LayoutParams(500, 500))
-        cell.setOnClickListener{_->
-            if (x % 3 == 0) {
-                cell.setState(State.REGULAR)
-            } else if (x % 3 == 1) {
-                cell.setState(State.SELECTED)
-            } else {
-                cell.setState(State.ERROR)
+        rowCount = plvRowCount
+        columnCount = plvColumnCount
+
+        for (i in 0..8) {
+            var cell = Cell(context, i, 0,
+                    regularCellBackground, regularDotColor, regularDotRadiusRatio,
+                    selectedCellBackground, selectedDotColor, selectedDotRadiusRatio,
+                    errorCellBackground, errorDotColor, errorDotRadiusRatio,
+                    lineStyle, regularLineColor, errorLineColor)
+
+            cell.setPadding(spacing / 2, spacing / 2, spacing / 2, spacing / 2)
+
+            addView(cell, 300, 300)
+            cell.setOnClickListener { _->
+                var result = Random().nextInt(100) % 3
+                if (result == 1) {
+                    cell.setState(State.REGULAR)
+                } else if(result == 2) {
+                    cell.setState(State.SELECTED)
+                } else {
+                    cell.setState(State.ERROR)
+                }
+                logg(cell.getCenter().x.toString())
+                logg(cell.getCenter().y.toString())
+
             }
-            x ++
         }
+    }
+
+    override fun onMeasure(widthSpec: Int, heightSpec: Int) {
+        super.onMeasure(widthSpec, heightSpec)
+
+    }
+
+    fun logg(log: String) {
+        Log.d("plv_", log)
     }
 }

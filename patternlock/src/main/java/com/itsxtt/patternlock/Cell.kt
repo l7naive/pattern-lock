@@ -4,17 +4,16 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Point
+import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.os.Build
-import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 
 //TODO: internal has no effect, still accessible outside the module
 internal class Cell(context: Context,
-                    row: Int,
-                    column: Int,
+                    var row: Int,
+                    var column: Int,
                     private var regularCellBackground: Drawable?,
                     private var regularDotColor: Int,
                     private var regularDotRadiusRatio: Float,
@@ -32,6 +31,7 @@ internal class Cell(context: Context,
     private var paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     override fun onDraw(canvas: Canvas?) {
+        logg("Cell=>onDraw")
         when(currentState) {
             State.REGULAR -> drawDot(canvas, regularCellBackground, regularDotColor, regularDotRadiusRatio)
             State.SELECTED -> drawDot(canvas, selectedCellBackground, selectedDotColor, selectedDotRadiusRatio)
@@ -39,29 +39,41 @@ internal class Cell(context: Context,
         }
     }
 
+    fun logg(log: String) {
+        Log.d("plv_", log)
+    }
+
     private fun drawDot(canvas: Canvas?,
                         background: Drawable?,
                         dotColor: Int,
                         radiusRation: Float) {
+        logg("Cell=>drawDot")
+
+        var radius = (Math.min(width, height) - (paddingLeft + paddingRight)) / 2
+        var centerX = width / 2
+        var centerY = height / 2
+
         if (background is ColorDrawable) {
             paint.color = background.color
             paint.style = Paint.Style.FILL
-            canvas?.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), (width / 2).toFloat(), paint)
-        } else if (background != null) {
-            //TODO: deprecated method
-           setBackgroundDrawable(background)
+            canvas?.drawCircle(centerX.toFloat(), centerY.toFloat(), radius.toFloat(), paint)
+        } else {
+            background?.setBounds(paddingLeft, paddingTop, width - paddingRight, height - paddingBottom)
+            background?.draw(canvas)
         }
 
         paint.color = dotColor
         paint.style = Paint.Style.FILL
-        canvas?.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), width * radiusRation / 2, paint)
+        canvas?.drawCircle(centerX.toFloat(), centerY.toFloat(), radius * radiusRation, paint)
     }
 
 
     fun getCenter() : Point {
+        var location = IntArray(2)
+        getLocationOnScreen(location)
         var point = Point()
-        point.x = (right - left) / 2
-        point.y = (bottom - top) / 2
+        point.x = location[0] + width / 2
+        point.y = location[1] + height / 2
         return point
     }
 

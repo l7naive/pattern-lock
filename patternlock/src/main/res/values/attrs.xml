@@ -24,8 +24,7 @@
         <attr name="plv_regularLineColor" format="color"/>
         <attr name="plv_errorLineColor" format="color"/>
 
-        <attr name="plv_horizontalSpacing" format="dimension"/>
-        <attr name="plv_verticalSpacing" format="dimension"/>
+        <attr name="plv_spacing" format="dimension"/>
     </declare-styleable>
 
 </resources>
