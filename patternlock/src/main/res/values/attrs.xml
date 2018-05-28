@@ -17,14 +17,16 @@
 
         <attr name="plv_lineStyle" format="enum">
             <enum name="common" value="1"></enum>
-            <enum name="none" value="2"></enum>
-            <enum name="indicator" value="3"></enum>
+            <enum name="indicator" value="2"></enum>
         </attr>
         <attr name="plv_lineWidth" format="dimension"/>
         <attr name="plv_regularLineColor" format="color"/>
         <attr name="plv_errorLineColor" format="color"/>
 
         <attr name="plv_spacing" format="dimension"/>
+
+        <attr name="plv_rowCount" format="integer"/>
+        <attr name="plv_columnCount" format="integer"/>
     </declare-styleable>
 
 </resources>
