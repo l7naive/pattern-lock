@@ -216,7 +216,7 @@ class PatternLockView : GridLayout {
                 y >= view.top + insidePadding &&
                 y <= view.bottom - insidePadding
     }
-    
+
     fun logg(log: String) {
         Log.d("plv_", log)
     }
