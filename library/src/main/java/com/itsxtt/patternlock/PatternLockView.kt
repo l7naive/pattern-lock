@@ -3,6 +3,7 @@ package com.itsxtt.patternlock
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -16,8 +17,8 @@ class PatternLockView : GridLayout {
 
     companion object {
         const val DEFAULT_RADIUS_RATIO = 0.3f
-        const val DEFAULT_LINE_WIDTH = 4f // unit: dp
-        const val DEFAULT_SPACING = 8f // unit: dp
+        const val DEFAULT_LINE_WIDTH = 2f // unit: dp
+        const val DEFAULT_SPACING = 24f // unit: dp
         const val DEFAULT_ROW_COUNT = 3
         const val DEFAULT_COLUMN_COUNT = 3
     }
@@ -64,22 +65,22 @@ class PatternLockView : GridLayout {
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         var ta = context.obtainStyledAttributes(attributeSet, R.styleable.PatternLockView)
         regularCellBackground = ta.getDrawable(R.styleable.PatternLockView_plv_regularCellBackground)
-        regularDotColor = ta.getColor(R.styleable.PatternLockView_plv_regularDotColor, Color.GRAY)
+        regularDotColor = ta.getColor(R.styleable.PatternLockView_plv_regularDotColor, ContextCompat.getColor(context, R.color.regularColor))
         regularDotRadiusRatio = ta.getFloat(R.styleable.PatternLockView_plv_regularDotRadiusRatio, DEFAULT_RADIUS_RATIO)
 
         selectedCellBackground = ta.getDrawable(R.styleable.PatternLockView_plv_selectedCellBackground)
-        selectedDotColor = ta.getColor(R.styleable.PatternLockView_plv_selectedDotColor, Color.BLUE)
+        selectedDotColor = ta.getColor(R.styleable.PatternLockView_plv_selectedDotColor, ContextCompat.getColor(context, R.color.selectedColor))
         selectedDotRadiusRatio = ta.getFloat(R.styleable.PatternLockView_plv_selectedDotRadiusRatio, DEFAULT_RADIUS_RATIO)
 
         errorCellBackground = ta.getDrawable(R.styleable.PatternLockView_plv_errorCellBackground)
-        errorDotColor = ta.getColor(R.styleable.PatternLockView_plv_errorDotColor, Color.RED)
+        errorDotColor = ta.getColor(R.styleable.PatternLockView_plv_errorDotColor, ContextCompat.getColor(context, R.color.errorColor))
         errorDotRadiusRatio = ta.getFloat(R.styleable.PatternLockView_plv_errorDotRadiusRatio, DEFAULT_RADIUS_RATIO)
 
         lineStyle = ta.getInt(R.styleable.PatternLockView_plv_lineStyle, 1)
         lineWidth = ta.getDimensionPixelSize(R.styleable.PatternLockView_plv_lineWidth,
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_LINE_WIDTH, context.resources.displayMetrics).toInt())
-        regularLineColor = ta.getColor(R.styleable.PatternLockView_plv_regularLineColor, Color.BLUE)
-        errorLineColor = ta.getColor(R.styleable.PatternLockView_plv_errorLineColor, Color.RED)
+        regularLineColor = ta.getColor(R.styleable.PatternLockView_plv_regularLineColor, ContextCompat.getColor(context, R.color.selectedColor))
+        errorLineColor = ta.getColor(R.styleable.PatternLockView_plv_errorLineColor, ContextCompat.getColor(context, R.color.errorColor))
 
         spacing = ta.getDimensionPixelSize(R.styleable.PatternLockView_plv_spacing,
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_SPACING, context.resources.displayMetrics).toInt())

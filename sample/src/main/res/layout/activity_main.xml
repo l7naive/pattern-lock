@@ -1,33 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.itsxtt.patternlock.MainActivity"
-    android:paddingTop="20dp"
-    android:orientation="vertical">
-
-
+    android:orientation="vertical"
+    android:gravity="center">
 
     <com.itsxtt.patternlock.PatternLockView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:paddingLeft="60dp"
-        android:paddingRight="60dp"
-        app:plv_regularCellBackground="@drawable/oval"
-        app:plv_regularDotColor="#923456"
-        app:plv_regularDotRadiusRatio="0.4"
-        app:plv_selectedDotColor="#777000"
-        app:plv_selectedDotRadiusRatio="0.5"
-        app:plv_errorCellBackground="#009900"
-        app:plv_errorDotColor="#990000"
-        app:plv_errorDotRadiusRatio="0.8"
-        app:plv_spacing="16dp"
-        app:plv_columnCount="3"
-        app:plv_rowCount="3">
+        android:layout_marginLeft="72dp"
+        android:layout_marginRight="72dp"
+        style="@style/PatternLockView.WithIndicator">
 
     </com.itsxtt.patternlock.PatternLockView>
 </LinearLayout>

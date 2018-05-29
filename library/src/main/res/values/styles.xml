@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PatternLockView"></style>
+
+    <style name="PatternLockView.JDStyle">
+        <item name="plv_regularDotColor">@color/regularColor</item>
+        <item name="plv_selectedCellBackground">#33587bf4</item>
+        <item name="plv_selectedDotColor">@color/selectedColor</item>
+        <item name="plv_errorCellBackground">#33ea4954</item>
+        <item name="plv_errorDotColor">@color/errorColor</item>
+        <item name="plv_regularLineColor">@color/selectedColor</item>
+        <item name="plv_errorLineColor">@color/errorColor</item>
+        <item name="plv_spacing">32dp</item>
+    </style>
+
+    <style name="PatternLockView.WithIndicator">
+        <item name="plv_regularDotColor">@color/regularColor</item>
+        <item name="plv_selectedCellBackground">@drawable/with_indicator_selected_bg</item>
+        <item name="plv_selectedDotColor">@color/selectedColor</item>
+        <item name="plv_errorCellBackground">@drawable/with_indicator_error_bg</item>
+        <item name="plv_errorDotColor">@color/errorColor</item>
+        <item name="plv_lineStyle">indicator</item>
+        <item name="plv_regularLineColor">@color/selectedColor</item>
+        <item name="plv_errorLineColor">@color/errorColor</item>
+        <item name="plv_spacing">32dp</item>
+    </style>
+
+</resources>
