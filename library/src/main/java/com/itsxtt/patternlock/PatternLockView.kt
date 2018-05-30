@@ -5,7 +5,6 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
@@ -21,6 +20,12 @@ class PatternLockView : GridLayout {
         const val DEFAULT_SPACING = 24f // unit: dp
         const val DEFAULT_ROW_COUNT = 3
         const val DEFAULT_COLUMN_COUNT = 3
+        const val DEFAULT_ERROR_DURATION = 400 // unit: ms
+        const val DEFAULT_HIT_AREA_PADDING_RATIO = 0.2f
+        const val DEFAULT_INDICATOR_SIZE_RATIO = 0.25f
+
+        const val LINE_STYLE_COMMON = 1
+        const val LINE_STYLE_INDICATOR = 2
     }
 
     private var regularCellBackground: Drawable? = null
@@ -39,6 +44,7 @@ class PatternLockView : GridLayout {
      * determine the line's style
      * common: 1
      * with indicator: 2
+     * invisible: 3
      */
     private var lineStyle: Int = 0
 
@@ -51,6 +57,10 @@ class PatternLockView : GridLayout {
     private var plvRowCount: Int = 0
     private var plvColumnCount: Int = 0
 
+    private var errorDuration: Int = 0
+    private var hitAreaPaddingRatio: Float = 0f
+    private var indicatorSizeRatio: Float = 0f
+
     private var cells: ArrayList<Cell> = ArrayList()
     private var selectedCells: ArrayList<Cell> = ArrayList()
 
@@ -59,6 +69,10 @@ class PatternLockView : GridLayout {
 
     private var lastX: Float = 0f
     private var lastY: Float = 0f
+
+    private var isSecureMode = false
+
+    private var onPatternListener: OnPatternListener? = null
 
     constructor(context: Context) : super(context)
 
@@ -88,6 +102,10 @@ class PatternLockView : GridLayout {
         plvRowCount = ta.getInteger(R.styleable.PatternLockView_plv_rowCount, DEFAULT_ROW_COUNT)
         plvColumnCount = ta.getInteger(R.styleable.PatternLockView_plv_columnCount, DEFAULT_COLUMN_COUNT)
 
+        errorDuration = ta.getInteger(R.styleable.PatternLockView_plv_errorDuration, DEFAULT_ERROR_DURATION)
+        hitAreaPaddingRatio = ta.getFloat(R.styleable.PatternLockView_plv_hitAreaPaddingRatio, DEFAULT_HIT_AREA_PADDING_RATIO)
+        indicatorSizeRatio = ta.getFloat(R.styleable.PatternLockView_plv_indicatorSizeRatio, DEFAULT_INDICATOR_SIZE_RATIO)
+
         ta.recycle()
 
         rowCount = plvRowCount
@@ -104,12 +122,13 @@ class PatternLockView : GridLayout {
                 if (hitCell == null) {
                     return false
                 } else {
+                    onPatternListener?.onStarted()
                     notifyCellSelected(hitCell)
                 }
             }
             MotionEvent.ACTION_MOVE -> handleActionMove(event)
 
-            MotionEvent.ACTION_UP -> reset()
+            MotionEvent.ACTION_UP -> onFinish()
 
             MotionEvent.ACTION_CANCEL -> reset()
 
@@ -126,10 +145,6 @@ class PatternLockView : GridLayout {
             }
         }
 
-        for(i in 0..(selectedCells.size - 1)) {
-            var center = selectedCells[i].getCenter()
-        }
-
         lastX = event.x
         lastY = event.y
 
@@ -137,28 +152,63 @@ class PatternLockView : GridLayout {
     }
 
     private fun notifyCellSelected(cell: Cell) {
-        cell.setState(State.SELECTED)
         selectedCells.add(cell)
-
-        var point = cell.getCenter()
+        onPatternListener?.onProgress(generateSelectedIds())
+        if (isSecureMode) return
+        cell.setState(State.SELECTED)
+        var center = cell.getCenter()
         if (selectedCells.size == 1) {
-            linePath.moveTo(point.x.toFloat(), point.y.toFloat())
-            logg("moveTo")
+            if (lineStyle == LINE_STYLE_COMMON) {
+                linePath.moveTo(center.x.toFloat(), center.y.toFloat())
+            }
         } else {
-            linePath.lineTo(point.x.toFloat(), point.y.toFloat())
-            logg("lineTo")
+            if (lineStyle == LINE_STYLE_COMMON) {
+                linePath.lineTo(center.x.toFloat(), center.y.toFloat())
+            } else if (lineStyle == LINE_STYLE_INDICATOR) {
+                var previousCell = selectedCells[selectedCells.size - 2]
+                var previousCellCenter = previousCell.getCenter()
+                var diffX = center.x - previousCellCenter.x
+                var diffY = center.y - previousCellCenter.y
+                var radius = cell.getRadius()
+                var length = Math.sqrt((diffX * diffX + diffY * diffY).toDouble())
+
+                linePath.moveTo((previousCellCenter.x + radius * diffX / length).toFloat(), (previousCellCenter.y + radius * diffY / length).toFloat())
+                linePath.lineTo((center.x - radius * diffX / length).toFloat(), (center.y - radius * diffY / length).toFloat())
+
+                val degree = Math.toDegrees(Math.atan2(diffY.toDouble(), diffX.toDouble())) + 90
+                previousCell.setDegree(degree.toFloat())
+                previousCell.invalidate()
+            }
         }
     }
 
     override fun dispatchDraw(canvas: Canvas?) {
         super.dispatchDraw(canvas)
-        logg("dispatch")
+        if (isSecureMode) return
         canvas?.drawPath(linePath, linePaint)
-
         if (selectedCells.size > 0 && lastX > 0 && lastY > 0) {
-            var center = selectedCells[selectedCells.size - 1].getCenter()
-            canvas?.drawLine(center.x.toFloat(), center.y.toFloat(), lastX, lastY, linePaint)
+            if (lineStyle == LINE_STYLE_COMMON) {
+                var center = selectedCells[selectedCells.size - 1].getCenter()
+                canvas?.drawLine(center.x.toFloat(), center.y.toFloat(), lastX, lastY, linePaint)
+            } else if (lineStyle == LINE_STYLE_INDICATOR) {
+                var lastCell = selectedCells[selectedCells.size - 1]
+                var lastCellCenter = lastCell.getCenter()
+                var radius = lastCell.getRadius()
+
+                if (!(lastX >= lastCellCenter.x - radius &&
+                        lastX <= lastCellCenter.x + radius &&
+                        lastY >= lastCellCenter.y - radius &&
+                        lastY <= lastCellCenter.y + radius)) {
+                    var diffX = lastX - lastCellCenter.x
+                    var diffY = lastY - lastCellCenter.y
+                    var length = Math.sqrt((diffX * diffX + diffY * diffY).toDouble())
+                    canvas?.drawLine((lastCellCenter.x + radius * diffX / length).toFloat(),
+                            (lastCellCenter.y + radius * diffY / length).toFloat(),
+                            lastX, lastY, linePaint)
+                }
+            }
         }
+
     }
 
     private fun setupCells() {
@@ -168,7 +218,7 @@ class PatternLockView : GridLayout {
                         regularCellBackground, regularDotColor, regularDotRadiusRatio,
                         selectedCellBackground, selectedDotColor, selectedDotRadiusRatio,
                         errorCellBackground, errorDotColor, errorDotRadiusRatio,
-                        lineStyle, regularLineColor, errorLineColor, plvColumnCount)
+                        lineStyle, regularLineColor, errorLineColor, plvColumnCount, indicatorSizeRatio)
                 var cellPadding = spacing / 2
                 cell.setPadding(cellPadding, cellPadding, cellPadding, cellPadding)
                 addView(cell)
@@ -190,35 +240,78 @@ class PatternLockView : GridLayout {
     }
 
     private fun reset() {
-        logg(selectedCells.size.toString())
         for(cell in selectedCells) {
-            cell.setState(State.REGULAR)
+            cell.reset()
         }
         selectedCells.clear()
         linePaint.color = regularLineColor
         linePath.reset()
 
+        lastX = 0f
+        lastY = 0f
+
         invalidate()
+    }
+
+    fun enableSecureMode(enabled: Boolean) {
+        isSecureMode = enabled
     }
 
     private fun getHitCell(x: Int, y: Int) : Cell? {
         for(cell in cells) {
-            if (isPointInsideView(cell, x, y)) {
+            if (isSelected(cell, x, y)) {
                 return cell
             }
         }
         return null
     }
 
-    private fun isPointInsideView(view: View, x: Int, y: Int) : Boolean {
-        var insidePadding = view.width * 0.2
-        return x >= view.left + insidePadding &&
-                x <= view.right - insidePadding &&
-                y >= view.top + insidePadding &&
-                y <= view.bottom - insidePadding
+    private fun isSelected(view: View, x: Int, y: Int) : Boolean {
+        var innerPadding = view.width * hitAreaPaddingRatio
+        return x >= view.left + innerPadding &&
+                x <= view.right - innerPadding &&
+                y >= view.top + innerPadding &&
+                y <= view.bottom - innerPadding
     }
 
-    fun logg(log: String) {
-        Log.d("plv_", log)
+    private fun onFinish() {
+        var error = onPatternListener?.onComplete(generateSelectedIds())
+        if (error != null && error) {
+            onError()
+        } else {
+            reset()
+        }
+    }
+
+    private fun generateSelectedIds() : ArrayList<Int> {
+        var result = ArrayList<Int>()
+        for(cell in selectedCells) {
+            result.add(cell.index)
+        }
+        return result
+    }
+
+    private fun onError() {
+        if (isSecureMode) return
+        for (cell in selectedCells) {
+            cell.setState(State.ERROR)
+        }
+        linePaint.color = errorLineColor
+        invalidate()
+
+        postDelayed({
+            reset()
+        }, errorDuration.toLong())
+
+    }
+
+    fun setOnPatternListener(listener: OnPatternListener) {
+        onPatternListener = listener
+    }
+
+    interface OnPatternListener {
+        fun onStarted(){}
+        fun onProgress(ids: ArrayList<Int>){}
+        fun onComplete(ids: ArrayList<Int>) : Boolean
     }
 }
