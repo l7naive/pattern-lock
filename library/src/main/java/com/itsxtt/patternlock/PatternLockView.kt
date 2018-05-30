@@ -22,7 +22,7 @@ class PatternLockView : GridLayout {
         const val DEFAULT_COLUMN_COUNT = 3
         const val DEFAULT_ERROR_DURATION = 400 // unit: ms
         const val DEFAULT_HIT_AREA_PADDING_RATIO = 0.2f
-        const val DEFAULT_INDICATOR_SIZE_RATIO = 0.25f
+        const val DEFAULT_INDICATOR_SIZE_RATIO = 0.2f
 
         const val LINE_STYLE_COMMON = 1
         const val LINE_STYLE_INDICATOR = 2
