@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:gravity="center"
+        android:text="The correct pattern is: 012" />
+    <Button
+        android:id="@+id/defaultBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="default"/>
+    <Button
+        android:id="@+id/jdStyleBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="jd style"/>
+    <Button
+        android:id="@+id/indicatorBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="with indicator"/>
+    <Button
+        android:id="@+id/nineBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="9 * 9"/>
+    <Button
+        android:id="@+id/secureModeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="secure mode"/>
 </LinearLayout>

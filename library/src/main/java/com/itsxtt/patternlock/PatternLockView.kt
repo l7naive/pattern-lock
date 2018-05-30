@@ -253,8 +253,12 @@ class PatternLockView : GridLayout {
         invalidate()
     }
 
-    fun enableSecureMode(enabled: Boolean) {
-        isSecureMode = enabled
+    fun enableSecureMode() {
+        isSecureMode = true
+    }
+
+    fun disableSecureMode() {
+        isSecureMode = false
     }
 
     private fun getHitCell(x: Int, y: Int) : Cell? {
@@ -275,11 +279,14 @@ class PatternLockView : GridLayout {
     }
 
     private fun onFinish() {
-        var error = onPatternListener?.onComplete(generateSelectedIds())
-        if (error != null && error) {
-            onError()
-        } else {
+        lastX = 0f
+        lastY = 0f
+
+        var isCorrect = onPatternListener?.onComplete(generateSelectedIds())
+        if (isCorrect != null && isCorrect) {
             reset()
+        } else {
+            onError()
         }
     }
 

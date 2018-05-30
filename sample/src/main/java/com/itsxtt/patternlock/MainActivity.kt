@@ -3,7 +3,7 @@ package com.itsxtt.patternlock
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_pattern_jd.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +18,12 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pattern_default)
+        setContentView(R.layout.activity_main)
+        defaultBtn.setOnClickListener { _-> startPatternActivity(TYPE_DEFAULT) }
+        jdStyleBtn.setOnClickListener { _-> startPatternActivity(TYPE_JD_STYLE) }
+        indicatorBtn.setOnClickListener { _-> startPatternActivity(TYPE_WITH_INDICATOR) }
+        nineBtn.setOnClickListener { _-> startPatternActivity(TYPE_9x9) }
+        secureModeBtn.setOnClickListener { _-> startPatternActivity(TYPE_SECURE_MODE) }
     }
 
     private fun startPatternActivity(type: Int) {
