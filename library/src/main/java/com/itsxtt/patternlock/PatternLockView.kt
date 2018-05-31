@@ -299,7 +299,10 @@ class PatternLockView : GridLayout {
     }
 
     private fun onError() {
-        if (isSecureMode) return
+        if (isSecureMode) {
+            reset()
+            return
+        }
         for (cell in selectedCells) {
             cell.setState(State.ERROR)
         }
