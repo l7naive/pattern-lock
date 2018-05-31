@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.itsxtt.patternlock"
+        applicationId "com.itsxtt.patternlocksample"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1

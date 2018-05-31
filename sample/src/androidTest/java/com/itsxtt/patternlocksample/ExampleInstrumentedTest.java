@@ -1,4 +1,4 @@
-package com.itsxtt.patternlock;
+package com.itsxtt.patternlocksample;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

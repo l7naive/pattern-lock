@@ -1,8 +1,9 @@
-package com.itsxtt.patternlock
+package com.itsxtt.patternlocksample
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.itsxtt.patternlocksample.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
