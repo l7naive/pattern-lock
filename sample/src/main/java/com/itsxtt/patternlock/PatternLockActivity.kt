@@ -3,7 +3,6 @@ package com.itsxtt.patternlock
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_pattern_9x9.*
 import kotlinx.android.synthetic.main.activity_pattern_default.*
 import kotlinx.android.synthetic.main.activity_pattern_jd.*
@@ -59,13 +58,13 @@ class PatternLockActivity : AppCompatActivity() {
             } else {
                 tip = "error:" + getPatternString(ids)
             }
-            Toast.makeText(this@PatternLockActivity, tip, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this@PatternLockActivity, tip, Toast.LENGTH_SHORT).show()
             return isCorrect
         }
     }
 
     private fun getPatternString(ids: ArrayList<Int>) : String {
-        var result: String = ""
+        var result = ""
         for (id in ids) {
             result += id.toString()
         }

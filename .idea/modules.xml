@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/library/patternlock.iml" filepath="$PROJECT_DIR$/library/patternlock.iml" />
+      <module fileurl="file://D:\AndroidProject\pattern-lock\sample\app.iml" filepath="D:\AndroidProject\pattern-lock\sample\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/pattern-lock.iml" filepath="$PROJECT_DIR$/pattern-lock.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sample/app.iml" filepath="$PROJECT_DIR$/sample/app.iml" />
+      <module fileurl="file://D:\AndroidProject\pattern-lock\library\patternlock.iml" filepath="D:\AndroidProject\pattern-lock\library\patternlock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
     </modules>
   </component>
 </project>

@@ -1,16 +1,16 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 26
-
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -32,8 +32,17 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+publish {
+    userOrg = 'itsxtt'
+    groupId = 'com.itsxtt'
+    artifactId = 'patternlockview'
+    publishVersion = '0.1.0'
+    desc = 'Awesome pattern lock view for android written in kotlin.'
+    website = 'https://github.com/itsxtt/pattern-lock'
 }

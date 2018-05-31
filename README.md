@@ -1,2 +1,2 @@
 # pattern-lock
-Awesome pattern lock for android written in kotlin.
+Awesome pattern lock view for android written in kotlin. 
