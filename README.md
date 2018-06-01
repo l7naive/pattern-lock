@@ -14,23 +14,23 @@ Awesome pattern lock view for android written in kotlin.
 ## Preview
 
 <ul style="float:left">
-    <img src="./screenshots/default.gif" width="300"/>
-    <img src="./screenshots/indicator.gif" width="300"/>
-    <img src="./screenshots/jdstyle.gif" width="300"/>
-    <img src="./screenshots/nine.gif" width="300"/>
+    <img src="./screenshots/default.gif" width="100"/>
+    <img src="./screenshots/indicator.gif" width="100"/>
+    <img src="./screenshots/jdstyle.gif" width="100"/>
+    <img src="./screenshots/nine.gif" width="100"/>
 </ul>
 
 ## Usage
 
 ### Gradle
 
-```
+``` gradle
 implementation 'com.itsxtt:patternlockview:0.1.0'
 ```
 
 ### XML
 
-```
+``` xml
 <com.itsxtt.patternlock.PatternLockView
     android:id="@+id/patternLockView"
     android:layout_width="match_parent"
@@ -39,7 +39,7 @@ implementation 'com.itsxtt:patternlockview:0.1.0'
 
 ### Kotlin
 
-```
+``` Kotlin
 patternLockView.setOnPatternListener(object : PatternLockView.OnPatternListener {
     override fun onStarted() {
         super.onStarted()
@@ -62,7 +62,7 @@ patternLockView.setOnPatternListener(object : PatternLockView.OnPatternListener 
 
 ### Java
 
-```
+``` Java
 patternLockView.setOnPatternListener(new PatternLockView.OnPatternListener() {
     @Override
     public void onStarted() {
