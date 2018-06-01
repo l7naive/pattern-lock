@@ -14,10 +14,10 @@ Awesome pattern lock view for android written in kotlin.
 ## Preview
 
 <ul style="float:left">
-    <img src="./screenshots/default.gif" width="100"/>
-    <img src="./screenshots/indicator.gif" width="100"/>
-    <img src="./screenshots/jdstyle.gif" width="100"/>
-    <img src="./screenshots/nine.gif" width="100"/>
+    <img src="./screenshots/default.gif" width="150"/>
+    <img src="./screenshots/indicator.gif" width="150"/>
+    <img src="./screenshots/jdstyle.gif" width="150"/>
+    <img src="./screenshots/nine.gif" width="150"/>
 </ul>
 
 ## Usage
