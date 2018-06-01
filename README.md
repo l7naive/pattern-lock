@@ -2,6 +2,8 @@
 
 Awesome pattern lock view for android written in kotlin.
 
+[demo](https://github.com/itsxtt/pattern-lock/tree/master/apk)
+
 ## Features
 
 * easy to use
@@ -125,7 +127,9 @@ plv_errorDuration | integer | 400 | millisecond
 plv_hitAreaPaddingRatio | float | 0.2 |
 plv_indicatorSizeRatio | float | 0.2 |
 
+#### Secure Mode
 
+You can turn the secure mode on or off via call ```enableSecureMode()``` and ```disableSecureMode()```.
 
 
 ## Change Log
