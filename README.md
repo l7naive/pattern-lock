@@ -90,14 +90,14 @@ patternLockView.setOnPatternListener(new PatternLockView.OnPatternListener() {
 
 #### Built-in Styles
 
-[preview jd style](https://github.com/itsxtt/pattern-lock/blob/master/screenshots/jdstyle.gif)
+[preview](https://github.com/itsxtt/pattern-lock/blob/master/screenshots/jdstyle.gif)
 
 ```
 style="@style/PatternLockView.JDStyle"
 ```
 
 
-[preview pattern with indicator](https://github.com/itsxtt/pattern-lock/blob/master/screenshots/indicator.gif)
+[preview](https://github.com/itsxtt/pattern-lock/blob/master/screenshots/indicator.gif)
 
 ```
 style="@style/PatternLockView.WithIndicator"
@@ -116,7 +116,7 @@ plv_selectedDotRadiusRatio | float | 0.3 |
 plv_errorCellBackground | color\|reference | null |
 plv_errorDotColor | color | #ea4954 |
 plv_errorDotRadiusRatio | float | 0.3 |
-plv_lineStyle | enum | common | two values: common, indicator
+plv_lineStyle | enum | common | two values: [common](https://github.com/itsxtt/pattern-lock/blob/master/screenshots/default.gif), [indicator](https://github.com/itsxtt/pattern-lock/blob/master/screenshots/indicator.gif)
 plv_lineWidth | dimension | 2dp |  
 plv_regularLineColor | color | #587bf4 |
 plv_errorLineColor | color | #ea4954 |
