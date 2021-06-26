@@ -59,7 +59,7 @@ internal class Cell(context: Context,
             canvas?.drawCircle(centerX.toFloat(), centerY.toFloat(), radius.toFloat(), paint)
         } else {
             background?.setBounds(paddingLeft, paddingTop, width - paddingRight, height - paddingBottom)
-            background?.draw(canvas)
+            background?.draw(canvas!!)
         }
 
         paint.color = dotColor
