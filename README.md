@@ -28,13 +28,13 @@ Top level build file:
 ``` gradle
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }
 ```
 In your application build file:
 ``` gradle
-implementation 'com.itsxtt:patternlockview:0.1.0'
+implementation 'io.github.itsxtt:pattern-lock:0.2.0'
 ```
 
 ### XML
@@ -142,6 +142,10 @@ You can turn the secure mode on or off via call ```enableSecureMode()``` and ```
 
 
 ## Change Log
+
+### 0.2.0 (2021-10-08)
+* migrate to androidx
+* migrate to mavenCentral
 
 ### 0.1.0 (2018-05-31)
 * first release
