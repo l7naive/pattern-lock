@@ -1,5 +1,5 @@
 # Pattern Lock View 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PatternLockView-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6988) [![Download](https://api.bintray.com/packages/itsxtt/maven/patternlockview/images/download.svg) ](https://bintray.com/itsxtt/maven/patternlockview/_latestVersion)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PatternLockView-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6988) 
 
 Awesome pattern lock view for android written in kotlin.
 
