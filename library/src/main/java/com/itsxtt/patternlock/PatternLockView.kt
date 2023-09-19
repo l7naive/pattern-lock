@@ -118,7 +118,12 @@ class PatternLockView : GridLayout {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when(event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                var hitCell = getHitCell(event.x.toInt(), event.y.toInt())
+                // Calling "reset()" here fixes the problem of reconnecting the dots when user set pattern fast
+                // For example : If we set the limit that "connect at least four dots", and when we connect 3 dots and lift the finger,
+                // within second if we select a dot it will consider 4 dots. Previously 3 and 1 after lifting the finger. So, calling "reset()" here will
+                // fix the problem of reconnecting the dots.
+                reset()
+                val hitCell = getHitCell(event.x.toInt(), event.y.toInt())
                 if (hitCell == null) {
                     return false
                 } else {
@@ -140,6 +145,49 @@ class PatternLockView : GridLayout {
     private fun handleActionMove(event: MotionEvent) {
         var hitCell = getHitCell(event.x.toInt(), event.y.toInt())
         if (hitCell != null) {
+            // These check fixes the problem of missing middle dot between two dots.
+            if ((selectedCells.last().index == 0 && hitCell.index == 6)) {
+                if (!selectedCells.contains(cells[3])) {
+                    notifyCellSelected(cells[3])
+                }
+            } else if ((selectedCells.last().index == 0 && hitCell.index == 2)) {
+                if (!selectedCells.contains(cells[1])) {
+                    notifyCellSelected(cells[1])
+                }
+            } else if ((selectedCells.last().index == 2 && hitCell.index == 0)) {
+                if (!selectedCells.contains(cells[1])) {
+                    notifyCellSelected(cells[1])
+                }
+            } else if ((selectedCells.last().index == 2 && hitCell.index == 8)) {
+                if (!selectedCells.contains(cells[5])) {
+                    notifyCellSelected(cells[5])
+                }
+            } else if ((selectedCells.last().index == 6 && hitCell.index == 0)) {
+                if (!selectedCells.contains(cells[3])) {
+                    notifyCellSelected(cells[3])
+                }
+            } else if ((selectedCells.last().index == 6 && hitCell.index == 8)) {
+                if (!selectedCells.contains(cells[7])) {
+                    notifyCellSelected(cells[7])
+                }
+            } else if ((selectedCells.last().index == 8 && hitCell.index == 2)) {
+                if (!selectedCells.contains(cells[5])) {
+                    notifyCellSelected(cells[5])
+                }
+            } else if ((selectedCells.last().index == 8 && hitCell.index == 6)) {
+                if (!selectedCells.contains(cells[7])) {
+                    notifyCellSelected(cells[7])
+                }
+            } else if (
+                (selectedCells.last().index == 5 && hitCell.index == 3) ||
+                (selectedCells.last().index == 3 && hitCell.index == 5) ||
+                (selectedCells.last().index == 1 && hitCell.index == 7) ||
+                (selectedCells.last().index == 7 && hitCell.index == 1)
+            ) {
+                if (!selectedCells.contains(cells[4])) {
+                    notifyCellSelected(cells[4])
+                }
+            }
             if (!selectedCells.contains(hitCell)) {
                 notifyCellSelected(hitCell)
             }
